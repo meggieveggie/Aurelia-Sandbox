@@ -1,22 +1,22 @@
-import {Todo} from './todo';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
 export class App {
-  constructor() {
+  static inject = [EventAggregator]
+
+  constructor(ea) {
+    this.ea = ea;
     this.heading = 'Todos';
-    this.todos = [];
-    this.todoDescription = '';
   }
 
   addTodo() {
-    if (this.todoDescription) {
-      this.todos.push(new Todo(this.todoDescription));
-      this.todoDescription = '';
-    }
+    this.ea.publish('todo:add', this.description.value);
+    this.description.value = '';
   }
 
-  removeTodo(todo) {
-    let index = this.todos.indexOf(todo);
-    if (index !== -1) {
-      this.todos.splice(index, 1);
-    }
+  configureRouter(config) {
+    config.map([
+      { route: '', redirect: 'todos/all' },
+      { route: 'todos/:filter', moduleId: 'todo-list'}
+    ]);
   }
 }

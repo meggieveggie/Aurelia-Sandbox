@@ -1,19 +1,18 @@
 <template>
+  <require from="./todo-list"></require>
     <h1>${heading}</h1>
     
       <form submit.trigger="addTodo()">
-        <input type="text" value.bind="todoDescription">
+        <input type="text" ref="description">
         <button type="submit">Add Todo</button>
       </form>
-     
-      <ul>
-        <li repeat.for="todo of todos">
-          <input type="checkbox" checked.bind="todo.done">
-          <span css="text-decoration: ${todo.done ? 'line-through' : 'none'}">
-            ${todo.description}
-          </span>
-          <button click.trigger="removeTodo(todo)">Remove</button>
-        </li>    
-      </ul>
-     
+
+     <router-view></router-view>
+
+     <div>
+       <a href="#/todos/all">All</a>
+       <a href="#/todos/active">Active</a>
+       <a href="#/todos/completed">Completed</a>
+     </div>
+
    </template>

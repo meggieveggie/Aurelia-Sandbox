@@ -1,0 +1,10 @@
+<template>
+
+    <input type="checkbox" checked.bind="done">
+    <span if.bind="!editing" css="text-decoration: ${done ? 'line-through' : 'none'}" dblclick.trigger="editing = true">
+      ${description}
+    </span>
+    <input type="text" if.bind="editing" value.bind="description" blur.trigger="editing = false">
+    <button click.trigger="remove()">Remove</button>
+
+</template>
